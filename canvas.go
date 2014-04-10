@@ -125,6 +125,9 @@ func (self *Canvas) SetOption(key, value string) error {
 
     return nil
 }
+func (self *Canvas) InterlineSpacing() float64 {
+    return float64(C.DrawGetTextInterlineSpacing(self.drawing))
+}
 
 func (self *Canvas) SetInterlineSpacing(spacing float64) {
     C.DrawSetTextInterlineSpacing(self.drawing, C.double(spacing))
@@ -134,11 +137,12 @@ func (self *Canvas) SetCaption(content string) error {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
+    C.DrawSetTextInterlineSpacing(self.drawing, C.double(100))
+
     if C.MagickReadImage(self.wand, ccontent) == C.MagickFalse {
         return fmt.Errorf(`Could not open image "%s": %s`, content, self.Error())
     }
 
-    C.DrawSetTextInterlineSpacing(self.drawing, C.double(100.0))
     C.MagickDrawImage(self.wand, self.drawing)
 
     return nil
