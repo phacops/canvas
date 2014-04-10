@@ -137,10 +137,6 @@ func (self *Canvas) SetCaption(content string) error {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
-    C.DrawSetTextInterlineSpacing(self.drawing, C.double(-1))
-
-    C.MagickDrawImage(self.wand, self.drawing)
-
     if C.MagickReadImage(self.wand, ccontent) == C.MagickFalse {
         return fmt.Errorf(`Could not open image "%s": %s`, content, self.Error())
     }
