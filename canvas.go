@@ -126,6 +126,10 @@ func (self *Canvas) SetOption(key, value string) error {
 	return nil
 }
 
+func (self *Canvas) SetInterlineSpacing(spacing float64) {
+	C.DrawSetTextInterlineSpacing(self.drawing, C.double(spacing))
+}
+
 func (self *Canvas) SetCaption(content string) error {
 	ccontent := C.CString("caption:" + content)
 	defer C.free(unsafe.Pointer(ccontent))
