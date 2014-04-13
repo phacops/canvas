@@ -137,7 +137,7 @@ func (self *Canvas) SetCaption(content string) error {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
-    if C.MagickReadImage(self.wand, ccontent) == C.MagickFalse {
+    if C.MagickReadImage(self.drawing, ccontent) == C.MagickFalse {
         return fmt.Errorf(`Could not open image "%s": %s`, content, self.Error())
     }
 
