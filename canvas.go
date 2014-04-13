@@ -1033,7 +1033,7 @@ func New() *Canvas {
     self.fill = C.NewPixelWand()
     self.stroke = C.NewPixelWand()
 
-    //self.SetBackgroundColor("none")
+    self.SetBackgroundColor("none")
 
     //self.SetStrokeColor("#ffffff")
     //self.SetStrokeAntialias(true)
