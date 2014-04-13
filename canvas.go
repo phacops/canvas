@@ -997,6 +997,17 @@ func (self *Canvas) QuantumRange() uint {
     return self.quantumRange
 }
 
+func (self *Canvas) SetFont(font string) error {
+    cFont := C.CString(font)
+    defer C.free(unsafe.Pointer(cFont))
+
+    if C.DrawSetFont(self.drawing, cFont) == C.MagickFalse {
+        return fmt.Errorf("Could not set font: %s", self.Error())
+    }
+
+    return nil
+}
+
 func (self *Canvas) SetFontFamily(name string) error {
     family := C.CString(name)
     defer C.free(unsafe.Pointer(family))
