@@ -148,7 +148,7 @@ func (self *Canvas) DrawAnnotation(content string, width, height uint) error {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
-    C.DrawAnnotation(self.drawing, 20, 20, (*C.uchar)(unsafe.Pointer(ccontent)))
+    C.DrawAnnotation(self.drawing, C.double(width), C.double(height), (*C.uchar)(unsafe.Pointer(ccontent)))
 
     if C.MagickDrawImage(self.wand, self.drawing) == C.MagickFalse {
         return fmt.Errorf(`Could not draw annotation: %s`, self.Error())
