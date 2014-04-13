@@ -137,24 +137,18 @@ func (self *Canvas) SetCaption(content string) error {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
-    if C.MagickReadImage(self.drawing, ccontent) == C.MagickFalse {
+    if C.MagickReadImage(self.wand, ccontent) == C.MagickFalse {
         return fmt.Errorf(`Could not open image "%s": %s`, content, self.Error())
     }
 
     return nil
 }
 
-func (self *Canvas) DrawAnnotation(content string, width, height uint) error {
+func (self *Canvas) DrawAnnotation(content string, width, height uint) {
     ccontent := C.CString("caption:" + content)
     defer C.free(unsafe.Pointer(ccontent))
 
     C.DrawAnnotation(self.drawing, C.double(width), C.double(height), (*C.uchar)(unsafe.Pointer(ccontent)))
-
-    if C.MagickDrawImage(self.wand, self.drawing) == C.MagickFalse {
-        return fmt.Errorf(`Could not draw annotation: %s`, self.Error())
-    }
-
-    return nil
 }
 
 // Reads an image or image sequence from a blob.
@@ -1039,16 +1033,16 @@ func New() *Canvas {
     self.fill = C.NewPixelWand()
     self.stroke = C.NewPixelWand()
 
-    self.SetBackgroundColor("none")
+    //self.SetBackgroundColor("none")
 
-    self.SetStrokeColor("#ffffff")
-    self.SetStrokeAntialias(true)
-    self.SetStrokeWidth(1.0)
-    self.SetStrokeOpacity(1.0)
-    self.SetStrokeLineCap(STROKE_ROUND_CAP)
-    self.SetStrokeLineJoin(STROKE_ROUND_JOIN)
+    //self.SetStrokeColor("#ffffff")
+    //self.SetStrokeAntialias(true)
+    //self.SetStrokeWidth(1.0)
+    //self.SetStrokeOpacity(1.0)
+    //self.SetStrokeLineCap(STROKE_ROUND_CAP)
+    //self.SetStrokeLineJoin(STROKE_ROUND_JOIN)
 
-    self.SetFillColor("#888888")
+    //self.SetFillColor("#888888")
 
     return self
 }
