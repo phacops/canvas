@@ -1035,14 +1035,14 @@ func New() *Canvas {
 
     self.SetBackgroundColor("none")
 
-    //self.SetStrokeColor("#ffffff")
+    self.SetStrokeColor("#ffffff")
     //self.SetStrokeAntialias(true)
     //self.SetStrokeWidth(1.0)
     //self.SetStrokeOpacity(1.0)
     //self.SetStrokeLineCap(STROKE_ROUND_CAP)
     //self.SetStrokeLineJoin(STROKE_ROUND_JOIN)
 
-    //self.SetFillColor("#888888")
+    self.SetFillColor("#000000")
 
     return self
 }
